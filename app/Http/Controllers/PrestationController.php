@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PrestationResource;
 use App\Models\Prestation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class PrestationController extends Controller
         $prestations=$prestations->get();
         return response([
             "status"=>true,
-            "data"=>$prestations
+            "data"=>PrestationResource::collection($prestations)
         ]);
     }
 

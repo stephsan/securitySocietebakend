@@ -1,0 +1,90 @@
+body {
+    background: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+.card-container {
+    width: 900px;
+    background: #fff;
+    margin: 30px auto;
+    padding: 20px;
+    border: 4px solid #f47c20;
+    position: relative;
+}
+
+/* HEADER */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.company {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo {
+    width: 100px;
+}
+
+.slogan {
+    font-style: italic;
+}
+
+/* BADGE TITLE */
+.badge-title {
+    background: #f47c20;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    margin: 20px 0;
+    font-size: 22px;
+}
+
+/* BODY */
+.card-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-section {
+    width: 60%;
+    font-size: 20px;
+}
+
+.photo-section {
+    width: 35%;
+    text-align: center;
+}
+
+.photo {
+    width: 200px;
+    height: 250px;
+    border: 4px solid #f47c20;
+    object-fit: cover;
+}
+
+.matricule {
+    margin-top: 15px;
+    color: #f47c20;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.signature {
+    margin-top: 20px;
+    text-align: right;
+    font-style: italic;
+}
+
+/* Impression */
+@media print {
+    body {
+        background: white;
+    }
+
+    .card-container {
+        border: none;
+    }
+}

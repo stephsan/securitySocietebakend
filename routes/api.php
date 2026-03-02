@@ -5,6 +5,7 @@ use App\Http\Controllers\api\ParametreController;
 use App\Http\Controllers\api\ValeurController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContratController;
 use App\Http\Controllers\EmploiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ Route::get('prestations',[PrestationController::class, 'index']);
 Route::get('prestations/{id}',[PrestationController::class, 'show']);
 Route::put('prestations/{id}',[PrestationController::class, 'update']);
 
+Route::post('/contrats', [ContratController::class, 'store']);
 
 Route::post("users", [AuthController::class,'create_use']);
 Route::post("login", [AuthController::class,'user_login']);
@@ -68,20 +70,7 @@ Route::post('/personne-fonction',
 
 Route::delete('/personne-fonction/{id}',
 [EmploiController::class,'destroy_fonction_personne']);
-// // Login API
-// Route::post('/login', function (Request $request) {
-//     $user = User::where('email', $request->email)->first();
 
-//     if (! $user || ! Hash::check($request->password, $user->password)) {
-//         return response()->json(['message' => 'Invalid credentials'], 401);
-//     }
-
-//     $token = $user->createToken('api-token')->plainTextToken;
-
-//     return response()->json(['token' => $token]);
-// });
-
-// Logout
 Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
     $request->user()->currentAccessToken()->delete();
     return response()->json(['message' => 'Logged out']);
