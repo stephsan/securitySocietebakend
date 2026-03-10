@@ -51,6 +51,14 @@ class ClientController extends Controller
             'telephone'=>$request->telephone,
             'email'=>$request->email,
             'detail_adresse'=>$request->detail_adresse,
+            'numero_rccm' => $request->numeroRccm,
+            'numero_ifu' => $request->numeroIfu,
+            'regime_fiscal' => $request->regimeDimposition,
+            'division_fiscale' => $request->divisionFiscale,
+            'adresse_siege' => $request->detail_adresse,
+            'section' => $request->section,
+            'boite_postale' => $request->boitePostale,
+            'telephone_mobile' => $request->telephoneMobile,
         ]);
         return response()->json([
             'status'=>true,
@@ -108,6 +116,14 @@ class ClientController extends Controller
                 'telephone'=>$request->telephone,
                 'email'=>$request->email,
                 'detail_adresse'=>$request->detail_adresse,
+                'numero_rccm' => $request->numeroRccm,
+                'numero_ifu' => $request->numeroIfu,
+                'regime_fiscal' => $request->regimeDimposition,
+                'division_fiscale' => $request->divisionFiscale,
+                'adresse_siege' => $request->detail_adresse,
+                'section' => $request->section,
+                'boite_postale' => $request->boitePostale,
+                'telephone_mobile' => $request->telephoneMobile,
             ]);
             return response()->json([
                 'status'=>true,

@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\EmploiController;
+use App\Http\Controllers\FactureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\PersonneController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\TempImageControler;
+use App\Models\Facture;
 use App\Models\Prestation;
 
 // Route protégée par Sanctum
@@ -48,14 +50,30 @@ Route::get('prestations',[PrestationController::class, 'index']);
 Route::get('prestations/{id}',[PrestationController::class, 'show']);
 Route::put('prestations/{id}',[PrestationController::class, 'update']);
 
-Route::post('/contrats', [ContratController::class, 'store']);
+Route::post('contrats', [ContratController::class, 'store']);
+Route::get('contrats',[ContratController::class, 'index']);
+Route::get('contrats/{id}',[ContratController::class, 'show']);
+Route::put('contrats/{id}',[ContratController::class, 'update']);
+
+Route::post('/contrats/{id}/facturer', [FactureController::class, 'facturer']);
+Route::get('/factures/{facture}/pdf', [FactureController::class, 'generatePdf']);
 
 Route::post("users", [AuthController::class,'create_use']);
 Route::post("login", [AuthController::class,'user_login']);
 Route::post('/documents', [DocumentController::class,'store']);
 Route::delete('personnes/{id}',[PersonneController::class, 'destroy']);
 
+Route::get('/verification/facture/{id}', function ($id) {
 
+    $facture = Facture::findOrFail($id);
+
+    return response()->json([
+        'numero_facture' => $facture->numero_facture,
+        'client' => $facture->contrat->client->denomination,
+        'montant' => $facture->montant_total,
+        'statut' => 'valide'
+    ]);
+});
 
 
 Route::get('/return-valeur/{parametre_id}', [ValeurController::class, 'return_valeurs']);

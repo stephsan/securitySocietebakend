@@ -16,4 +16,13 @@ class Contrat extends Model
     {
         return $this->hasMany(ContratLigne::class);
     }
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+    public function factures()
+    {
+        return $this->hasMany(Facture::class);
+    }
+
 }

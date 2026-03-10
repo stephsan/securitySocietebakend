@@ -4,20 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ContratLigne extends Model
+class FactureLigne extends Model
 {
-    // protected $table= 'contrat_lignes'
     protected $fillable = [
-        'contrat_id',
+        'facture_id',
+        'contrat_ligne_id',
         'prestation_id',
         'quantite',
         'montant',
-        'montant_prestation'
+        'montant_total',
+        'nombre_de_jour_facture'
     ];
 
-    public function contrat()
+    public function facture()
     {
-        return $this->belongsTo(Contrat::class);
+        return $this->belongsTo(Facture::class);
     }
     public function prestation()
     {

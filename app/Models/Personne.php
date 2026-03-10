@@ -26,8 +26,5 @@ class Personne extends Model
     {
         return $this->hasMany(PersonneFonction::class);
     }
-    public function valeur()
-    {
-        return $this->belongsTo(Valeur::class,"valeur_id");
-    }
+   
 }
