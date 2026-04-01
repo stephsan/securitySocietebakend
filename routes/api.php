@@ -6,6 +6,7 @@ use App\Http\Controllers\api\ValeurController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContratController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmploiController;
 use App\Http\Controllers\FactureController;
 use Illuminate\Http\Request;
@@ -54,9 +55,12 @@ Route::post('contrats', [ContratController::class, 'store']);
 Route::get('contrats',[ContratController::class, 'index']);
 Route::get('contrats/{id}',[ContratController::class, 'show']);
 Route::put('contrats/{id}',[ContratController::class, 'update']);
+Route::get('/contrats/{id}/download', [ContratController::class, 'download']);
 
 Route::post('/contrats/{id}/facturer', [FactureController::class, 'facturer']);
 Route::get('/factures/{facture}/pdf', [FactureController::class, 'generatePdf']);
+Route::post('/factures/{facture}/changer-statut', [FactureController::class, 'changeStatus']);
+
 
 Route::post("users", [AuthController::class,'create_use']);
 Route::post("login", [AuthController::class,'user_login']);
@@ -93,3 +97,4 @@ Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
     $request->user()->currentAccessToken()->delete();
     return response()->json(['message' => 'Logged out']);
 });
+Route::get('/dashboard', [DashboardController::class, 'index']);

@@ -12,7 +12,8 @@ class Facture extends Model
         'numero_facture',
         'date_debut',
         'date_fin',
-        'montant_total'
+        'montant_total',
+        'statut'
     ];
     public function contrat()
     {

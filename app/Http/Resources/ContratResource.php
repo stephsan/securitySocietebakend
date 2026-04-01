@@ -21,6 +21,7 @@ class ContratResource extends JsonResource
             'denom_client' => $this->client->denomination,
             'code_client' => $this->client->code_client,
             'montant_contrat' => $this->lignes->sum('montant_prestation'),
+            'contract_file'=>$this->contract_file,
             'lignes' => $this->lignes->map(function ($ligne) {
                 return [
                     'ligne_id' => $ligne->id,

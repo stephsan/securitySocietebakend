@@ -7,6 +7,7 @@ use App\Models\Contrat;
 use App\Models\ContratLigne;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ContratController extends Controller
 {
@@ -47,16 +48,22 @@ class ContratController extends Controller
                 DB::table('sequences')
                     ->where('name', 'contrat')
                     ->update(['current' => $next]);
+                    if($request->has('contract_file')){
+                        $path = $request->contract_file->store('documents', 'public');
+                    
+                    }else{
+                        $path =null;
+                    }
                     $contrat = Contrat::create([
                         'numero_contrat' => $number,
                         'client_id' => $request->client_id,
-                        'clause_particulieres' => $request->clause_particulieres
+                        'clause_particulieres' => $request->clause_particulieres,
+                        'contract_file'=> $path,
                     ]);
                     foreach ($request->lignes as $ligne) {
                         $contrat->lignes()->create($ligne);
                     }
                     DB::commit();
-    
                     return response()->json([
                         'message' => 'Contrat créé avec succès',
                         'contrat' => $contrat->load('lignes')
@@ -89,16 +96,20 @@ class ContratController extends Controller
 
     DB::transaction(function () use ($request, $contrat) {
 
+        if($request->has('contract_file')){
+            $path = $request->contract_file->store('documents', 'public');
+        
+        }else{
+            $path =$contrat->contract_file;
+        }
         // 🔹 Mise à jour contrat
         $contrat->update([
             'client_id' => $request->client_id,
             'clause_particulieres' => $request->clause_particulieres,
+            'contract_file'=>$path,
         ]);
-
         $existingIds = [];
-
         foreach ($request->lignes as $ligne) {
-
             if (isset($ligne['id'])) {
                 // 🔹 Mise à jour ligne existante
                 $ligneModel = ContratLigne::find($ligne['id']);
@@ -127,6 +138,19 @@ class ContratController extends Controller
         });
 
     return response()->json(['message' => 'Contrat modifié avec succès']);
+}
+
+public function download($id)
+{
+    $contrat = Contrat::findOrFail($id);
+
+    if (!$contrat->contract_file) {
+        return response()->json(['message' => 'Fichier non trouvé'], 404);
+    }
+
+    $path = $contrat->contract_file;
+
+    return Storage::disk('public')->download($path);
 }
         
 }

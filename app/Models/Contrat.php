@@ -9,7 +9,8 @@ class Contrat extends Model
     protected $fillable = [
         'numero_contrat',
         'client_id',
-        'clause_particulieres'
+        'clause_particulieres',
+        'contract_file'
     ];
 
     public function lignes()

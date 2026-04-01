@@ -38,6 +38,7 @@ class ClientResource extends JsonResource
                     'date_debut'=>format_date($facture->date_debut),
                     'date_fin'=>format_date($facture->date_fin),
                     'montant_total' => $facture->montant_total,
+                    'statut' => $facture->statut,
                 ];
             }),
         ];

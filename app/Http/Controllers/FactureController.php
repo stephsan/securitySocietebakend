@@ -52,7 +52,8 @@ class FactureController extends Controller
                 'numero_facture' => $numero,
                 'date_debut' => $request->date_debut,
                 'date_fin' => $request->date_fin,
-                'montant_total' => 0
+                'montant_total' => 0,
+                'statut'=>'brouillon'
             ]);
 
             $total = 0;
@@ -67,7 +68,8 @@ class FactureController extends Controller
                     'quantite' => $ligne['quantite'],
                     'montant' => $ligne['montant_unitaire'],
                     'nombre_de_jour_facture'=>$ligne['jours'],
-                    'montant_total' =>$montant_ligne
+                    'montant_total' =>$montant_ligne,
+                    
                 ]);
 
                 $total += $montant_ligne;
@@ -122,4 +124,35 @@ class FactureController extends Controller
 
     return $pdf->download('facture_'.$facture->numero_facture.'.pdf');
 }
+    public function changeStatus(Request $request, $id){
+        $facture = Facture::findOrFail($id);
+
+    switch ($request->action) {
+        case 'valider':
+            if ($facture->statut === 'brouillon') {
+                $facture->statut = 'validee';
+            }
+            break;
+
+        case 'payer':
+            if ($facture->statut === 'validee') {
+                $facture->statut = 'payee';
+            }
+            break;
+
+        case 'rejeter':
+            if ($facture->statut === 'validee') {
+                $facture->statut = 'brouillon';
+            }
+            break;
+    }
+
+    $facture->save();
+
+    return response()->json([
+        'message' => 'Statut mis à jour',
+        'data' => $facture
+    ]);
+
+    }
 }

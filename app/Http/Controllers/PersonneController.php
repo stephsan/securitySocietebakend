@@ -25,6 +25,7 @@ class PersonneController extends Controller
 
     }
     public function store(Request $request){
+       //dd($request->all());
        $validator= Validator::make($request->all(), [
             'nom'=>'required|min:3',
             'prenom'=>'required|min:5'
@@ -43,6 +44,13 @@ class PersonneController extends Controller
                 'prenom' => $request->prenom,
                 'date_de_naiss' => $request->date_de_naiss,
                 'date_embauche' => $request->date_embauche,
+                'lieu_de_naissance'=>$request->lieu_de_naissance,
+                'situation_matrimoniale'=>$request->situation_matrimoniale,
+                'nom_du_conjoint'=>$request->nom_du_conjoint,
+                'contacts'=>$request->contact,
+                'personne_a_prevenir'=>$request->personne_a_prevenir,
+                'date_depart'=>$request->date_depart,
+                'sexe'=>$request->sexe,
             ]);
             //Stocker image 
         $tempImage=TempImage::find($request->image_id);
@@ -131,6 +139,13 @@ class PersonneController extends Controller
                 'prenom' => $request->prenom,
                 'date_de_naiss' => $request->date_de_naiss,
                 'date_embauche' => $request->date_embauche,
+                'lieu_de_naissance'=>$request->lieu_de_naissance,
+                'situation_matrimoniale'=>$request->situation_matrimoniale,
+                'nom_du_conjoint'=>$request->nom_du_conjoint,
+                'contacts'=>$request->contacts,
+                'personne_a_prevenir'=>$request->personne_a_prevenir,
+                'date_depart'=>$request->date_depart,
+                'sexe'=>$request->sexe,
             ]);
             $tempImage=TempImage::find($request->image_id);
             if($tempImage!= null){

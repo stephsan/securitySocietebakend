@@ -21,6 +21,13 @@ class PersonneResource extends JsonResource
             'matricule' => $this->matricule,
             'date_de_naiss' => format_date($this->date_de_naiss),
             'date_embauche' => format_date($this->date_embauche),
+            'lieu_de_naissance'=>$this->lieu_de_naissance,
+            'situation_matrimoniale'=>$this->situation_matrimoniale,
+            'nom_du_conjoint'=>$this->nom_du_conjoint,
+            'contacts'=>$this->contacts,
+            'personne_a_prevenir'=>$this->personne_a_prevenir,
+            'date_depart'=>$this->date_depart,
+            'sexe'=>$this->sexe,
              "image_url"=>$this->image_url,
             'documents' => $this->documents->map(function ($doc) {
                 return [
